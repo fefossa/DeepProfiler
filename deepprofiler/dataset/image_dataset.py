@@ -231,9 +231,10 @@ def read_dataset(config, mode = 'train'):
     )
 
     # Add training targets
-    for t in config["train"]["partition"]["targets"]:
-        new_target = deepprofiler.dataset.target.MetadataColumnTarget(t, metadata.data[t].unique())
-        dset.add_target(new_target)
+    if mode == 'train':
+        for t in config["train"]["partition"]["targets"]:
+            new_target = deepprofiler.dataset.target.MetadataColumnTarget(t, metadata.data[t].unique())
+            dset.add_target(new_target)
 
     # Activate outlines for masking if needed
     if config["dataset"]["locations"]["mask_objects"]:
